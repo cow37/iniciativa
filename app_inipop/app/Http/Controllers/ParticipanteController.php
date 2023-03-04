@@ -12,7 +12,7 @@ use App\Mail\NuevoPartisipante;
 use Illuminate\Support\Facades\Mail;
 use Intervention\Image\Facades\Image;
 use App\Mail\MailNotify;
-use Validator,Str,Config,Auth;
+use Validator,Str,Config,Auth,PDF,DB;
  use App\Models\User;
 
 use Illuminate\Support\Facades\Hash;
@@ -137,8 +137,10 @@ class ParticipanteController extends Controller
             'confirmation_code' => $data['confirmation_code']
         ]);
         // Send confirmation code
-    Mail::send('email.confirmation_code', $data, function($message) use ($data) {
-        $message->to($data['email'], $data['nombres'])->subject('Por favor confirma tu correo');
+       // $pdf = PDF::loadFile('archivos/Guia del Voluntario.pdf');
+
+    Mail::send('email.bienvenido', $data, function($message) use ($data) {
+        $message->to($data['email'], $data['nombres'])->subject('Correo de Confirmacion')->attach('archivos/Guia del Voluntario.pdf');
 });
     //Mail::to($request->input('email'))->send(new NuevoPartisipante($participante));
     
@@ -245,9 +247,23 @@ protected function reenviar_validacion()
     protected function finalizar_participacion()
         {
             
-      
+      //verificamos si ya tiene 30 cedulas cargadas
+            $emailusuario=Auth::user()->email;
+            $total_cedulas_cargada=DB::table('documento as d')
+            ->join('participante as p','p.cod_participante','=','d.cod_participante')
+            ->join('users as u','u.email','=','p.correo_electronico')
+            ->select('d.cod_participante',DB::raw('count(d.cod_documento) as cantidad_registrada'))
+            ->where('p.correo_electronico','=',$emailusuario)
+            ->orderBy('d.cod_participante','desc')
+            ->groupBy('d.cod_participante')
+            ->get();
+            
+            if ($total_cedulas_cargada[0]->{'cantidad_registrada'}<30){
+
+                return back()->with('message','No alcanzaste la cantidad necesaria para obtener el certificado! La cantidad es de 30 registros')->with('typealert','danger')->withInput();
+            }else{
     return view('registro/finalizar');
-    
+    }
         }
 
 }

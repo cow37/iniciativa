@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Documento;
 use App\Models\Participante;
+use App\Models\Cedula_habilitada;
 use Carbon\Carbon;
 use Auth,DB,PDF,QrCode;
 use Illuminate\Support\Facades\Storage;
@@ -41,13 +42,21 @@ class DocumentoController extends Controller
         //
         //validar si existe la cedula
         $nrocedula=$request->input('nrocedula');
+
+        //validamos con al base de stje
+        $consultadocumentotsje=Cedula_habilitada::where('cedula',$nrocedula)->get();
+        if (count($consultadocumentotsje)==0){
+
+          return back()->with('message','Ese número de cédula corresponde a una persona que aún no ha firmado')->with('typealert','danger')->withInput(); 
+        }
+
         $existecedula="SI";
 
         $consultadocumento=Documento::where('nro_cedula',$nrocedula)->get();
 
         if (count($consultadocumento)>0){
             //return $consultadocumento;
-             return back()->with('message','La cedula ya ha sido registrada')->with('typealert','danger')->withInput();
+             return back()->with('message','Esa cédula ya ha sido registrada con anterioridad, por otro voluntario')->with('typealert','danger')->withInput();
         }else{
         //validar si ya se esta utilizando
         $yaseutilizo="No";
@@ -60,7 +69,7 @@ class DocumentoController extends Controller
          $documento=new Documento;
              $documento->cod_participante= $cod_participante['0']->{'cod_participante'};
              $documento->nro_cedula=$nrocedula;
-             $documento->nombre_apellido='xxx';
+             $documento->nombre_apellido=$consultadocumentotsje['0']->{'nombre'}.' '.$consultadocumentotsje['0']->{'apellido'};
               $documento->verificado=$existecedula;
                $documento->participando=$yaseutilizo;
              

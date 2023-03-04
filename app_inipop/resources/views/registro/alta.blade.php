@@ -6,11 +6,12 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                   <h3 align="center"> PLATAFORMA DE GESTIÓN PARA VOLUNTARIOS
+                   <h6 align="center"> PLATAFORMA DE GESTIÓN PARA VOLUNTARIOS<br>
                 DEL PROYECTO DE LEY DE INICIATICA POPULAR<br>
-                “MÁS EDUCACIÓN, MENOS BUROCRACIA”</h3>
+                “MÁS EDUCACIÓN, MENOS BUROCRACIA”</h6>
+                <div class="col-12 text-center"><strong> <h2>Módulo de Registro</h2> </strong></div>
 
-                    <img class="rounded mx-auto d-block" src="{{URL::asset('/imagenes/Mas_Educacion_Logo.png')}}" alt="profile Pic" height="200" width="200"></div>
+                    <img class="rounded mx-auto d-block" src="{{URL::asset('/imagenes/Mas_Educacion_Logo.png')}}" alt="" height="200" width="200"></div>
                 @if(Session::has('message'))
           
                       <div class="alert alert-{{Session::get('typealert')}}" style="display: none;">
@@ -122,7 +123,7 @@
                             </div>
                         </div>
                          <div class="row mb-3">
-                            <label for="nro_cedula" class="col-md-4 col-form-label text-md-end">{{ __('Nro Cedula') }}</label>
+                            <label for="nro_cedula" class="col-md-4 col-form-label text-md-end">Nro de Cédula'</label>
 
                             <div class="col-md-6">
                                 <input id="nrocedula" type="text" class="form-control @error('nrocedula') is-invalid @enderror" name="nrocedula" value="{{ old('nrocedula') }}" required autocomplete="nrocedula" autofocus>
@@ -135,7 +136,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Correo Electronico') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-end">Correo Electrónico</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -148,7 +149,7 @@
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <label for="nro_celular" class="col-md-4 col-form-label text-md-end">{{ __('Nro Celular') }}</label>
+                            <label for="nro_celular" class="col-md-4 col-form-label text-md-end">Nro de Celular</label>
 
                             <div class="col-md-6">
                                 <input id="nro_celular" type="text" class="form-control @error('nro_celular') is-invalid @enderror" name="nro_celular" value="{{ old('nro_celular') }}" required autocomplete="nro_celular" autofocus>
@@ -175,7 +176,7 @@
                         </div>
 
                         <div class="row mb-3">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-end">Confirmar Password</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
@@ -187,7 +188,7 @@
                         <div class="row mb-0" align="center">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Enviar datos para participar
+                                    Enviar datos para registrarte
                                 </button>
                                  <a type="button" href="{{url('/home')}}" class="btn btn-primary">
                                     Cancelar
@@ -198,7 +199,7 @@
                          <div class="row">
             <div class="col-md-12">
                 
-                <p align="center"><strong>Una vez que completes 30 números de CI de personas a las que apoyaste para conocer más acerca de la iniciativa popular, te enviaremos un email desde la dirección info@participapy.com con un certificado que acredite que has terminado exitosamente esta actividad. Ten presente que ese email podría estar en la bandeja de correos no deseados o de spam.</strong>
+                <p align="center"><strong>Una vez enviados los datos de registro, te enviaremos un e-mail desde la dirección info@participapy.com para confirmar tu e-mail y completar el registro. También te enviaremos toda la información y los instructivos para que puedas realizar la difusión de esta iniciativa popular. Ten presente que ese email podría estar en la bandeja de correos no deseados o de spam.</strong>
 </p>
             </div>
     </div>
@@ -210,85 +211,11 @@
 
 </div>
 @push('scripts')
- <script type="text/javascript"> 
-   
-    $('#cod_universidad').change(function(e){
- //alert("hola");
- var codigo_universidad=$("#cod_universidad option:selected").val();
-        // alert(codigo_universidad); 
-         if (! codigo_universidad){
-            $('#cod_facultad').html(' <option selected value="">Elija Facultadd</option>');
-            return;  
-         }      
-               buscar_facultad(codigo_universidad);
-    })
-    $('#cod_facultad').change(function(e){
-// alert("hola");
- var codigo_facultad=$("#cod_facultad option:selected").val();
-        // alert(codigo_universidad); 
-         if (! codigo_facultad){
-            $('#cod_sede').html(' <option selected value="">Elija sede</option>');
-            return;  
-         } 
-       //  alert("aca");     
-               buscar_sede(codigo_facultad);
-    })
-   
-    function buscar_facultad(valor_a_buscar){
-                    $.ajax({
-                       // url:'/administrador/consulta_cotizacion',
-                       url:'{{ route('consulta_facultad') }}',
-                        method:'POST',
-                        data:{id:valor_a_buscar,_token:$('input[name="_token"]').val()}
-                    }).done(function(res){
-                      var arreglo=JSON.parse(res);
-                      console.log(arreglo);
+<script src="{{ asset('/js/altas.js') }}" type="text/javascript">
 
-                      
-                     if (arreglo.length==0)
-                     {
-                      alert("No hay Facultades para la universidad seleccionada");
-                      //$("#cod_facultad").val(0); 
-                      
-                     } else{
-                     
-                           var html_select=' <option value="" selected>Elija Facultad</option>';
-                      for (var i=0;i<arreglo.length;i++)
-                        html_select+='<option value="'+arreglo[i].cod_facultad+'">'+arreglo[i].nombre_facultad+'</option>';
-                        $('#cod_facultad').html(html_select);          
-                     
-                   }
-                    }) 
+ 
+</script>
 
-                        }
-      function buscar_sede(facultad_id){
-        //alert(facultad_id);
-                    $.ajax({
-                       // url:'/administrador/consulta_cotizacion',
-                       url:'{{ route('consulta_sede') }}',
-                        method:'POST',
-                        data:{id:facultad_id,_token:$('input[name="_token"]').val()}
-                    }).done(function(res){
-                      var arreglo_sede=JSON.parse(res);
-                      console.log(arreglo_sede);
 
-                      
-                     if (arreglo_sede.length==0)
-                     {
-                        var html_select=' <option value="" selected>Sin Sede</option>';
-                        $('#cod_sede').html(html_select)
-                      
-                     } else{
-                     
-                           var html_select=' <option value="" selected>Elija Sede</option>';
-                      for (var i=0;i<arreglo_sede.length;i++)
-                        html_select+='<option value="'+arreglo_sede[i].cod_sede+'">'+arreglo_sede[i].nombre_sede+'</option>';
-                        $('#cod_sede').html(html_select);          
-                     
-                   }
-                    }) 
-
-                        }
-    </script>
 @endpush
 @endsection

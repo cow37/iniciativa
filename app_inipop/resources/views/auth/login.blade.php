@@ -22,8 +22,11 @@
                       </div>
                     
                   @endif
-                   <img class="rounded mx-auto d-block" src="{{URL::asset('/imagenes/Mas_Educacion_Logo.png')}}" alt="profile Pic" height="200" width="200">
-                  <h2 class="text-center"><p>PLATAFORMA DE GESTIÓN PARA VOLUNTARIOS DEL PROYECTO DE LEY DE INICIATIVA POPULAR
+                  <img class="rounded mx-auto d-block" src="{{URL::asset('/imagenes/Logo Participa Py.png')}}" alt="" height="60" width="140">
+                   <img class="rounded mx-auto d-block" src="{{URL::asset('/imagenes/Mas_Educacion_Logo.png')}}" alt="" height="200" width="200">
+                  <h5 class="text-center"><p>PLATAFORMA DE GESTIÓN PARA VOLUNTARIOS <br>
+                   DEL PROYECTO DE LEY DE INICIATIVA POPULAR <br>
+                   “MÁS EDUCACIÓN, MENOS BUROCRACIA”
 </p>
                     </h2>
                    <div class="row justify-content-center">
@@ -65,17 +68,17 @@
                         
 
                         <div class="row">
-                            <div class="col-md-0 offset-md-4" align="center">
+                            <div class="col-md-0 offset-md-4" align="left">
                                 <button type="submit" class="btn btn-primary">
-                                    Ingresar
+                                    Ingresá
                                 </button>
                                 <a  type="button" class="btn btn-primary" href="{{ url('/registro/alta') }}">
-                                    Participar 
+                                    Registrate 
                                     
                                 </a>
                                 @if (Route::has('password.request'))
 
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    <br><a class="btn btn-link" href="{{ route('password.request') }}">
                                         ¿Olvidaste tu Password? Hacé click aquí
                                     </a>
                                 @endif
@@ -87,24 +90,17 @@
     
   </div>
                     <br>
-                 <h2 class="text-center"> “MÁS EDUCACIÓN, MENOS BUROCRACIA”
-                  <br>
-                  UN ESFUERZO CIUDADANO
- EN APOYO A LA EDUCACIÓN PARAGUAYA
-<br>
-                  
-                 
-                   </h2>
+                
                     
                     <div class="row">
-                        <div class="col-12">La iniciativa popular es un mecanismo constitucional de democracia participativa, que concede a los ciudadanos el derecho de proponer al Congreso proyectos de ley . (Art. 123 Constitución Nacional)
+                        <div class="col-12  text-center"><h6> La iniciativa popular es un mecanismo constitucional de democracia participativa, que concede a los ciudadanos el derecho de proponer al Congreso proyectos de ley . (Art. 123 Constitución Nacional)</h6>
 </div>
 
                     </div>   
                   
                 
            
-        </div>
-    </div>
+        </div> </div> 
+
 </div>
 @endsection

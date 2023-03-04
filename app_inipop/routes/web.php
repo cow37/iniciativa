@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ParticipanteController;
 use App\Http\Controllers\DocumentoController;
-
+use App\Http\Controllers\CedulaHabilitadaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,3 +53,7 @@ Route::get('/registro/finalizar',[ParticipanteController::class, 'finalizar_part
      Route::get('registro/PDFS/Certificado', [DocumentoController::class, 'GenerarCerficado_pdf'])->name('generar_certificado')->middleware('auth');
 //verificar pdf
 Route::post('/register/verifypdf/{code}', [DocumentoController::class, 'verifypdf'])->middleware('auth');
+
+///importar excel
+route::get('importar',[CedulaHabilitadaController::class,'index'])->middleware('auth');
+Route::post('importar/excel',[CedulaHabilitadaController::class,'importar'])->middleware('auth');

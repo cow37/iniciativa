@@ -7,8 +7,9 @@
             <div class="card">
                 <div class="card-header text-center">Formulario para registrar los números de cédula de identidad de las personas que ayudaste a firmar electrónicamente esta iniciativa popular. Solo serán válidos los números de cédula de identidad que, desde que te registraste, han firmado electrónicamente en la plataforma del TSJE.
 </div>
-
+            
                 <div class="card-body">
+                    <div class="col-12 text-center"><strong> <h3>Módulo de Carga</h2></strong></div>
                      @if(Session::has('message'))
           
                       <div class="alert alert-{{Session::get('typealert')}}" style="display: none;">
@@ -110,10 +111,11 @@
 </div>
 @push('scripts')
 <script type="text/javascript"> 
-  /*  $('#agregardoc').click(function(e){
+  /* $('#gcertificado').click(function(e){
        
     })*/
-         
+
+         $('#gcertificado').disabled=true;
     
     var nFilas = $("#tbdocumentos tr"). length-1;
     var nColumnas = 30-nFilas;
@@ -125,9 +127,10 @@
     //document.getElementById('gcertificado').disabled = true
   // gcertificado.disabled = true; 
     $("#nrocedula").val("");
+    event.preventDefault();
     //alert(msg);
    
-    if(nFilas==30){
+   /* if(nFilas==30){
         alert("aca");
         gcertificado.disabled = false; 
         agregardoc.disabled = true;
@@ -136,7 +139,7 @@
         
         gcertificado.disabled = true; 
         agregardoc.disabled = false;
-    };
+    };*/
     
     </script>
 @endpush
